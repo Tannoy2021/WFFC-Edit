@@ -10,6 +10,7 @@
 #include "DisplayObject.h"
 #include "DisplayChunk.h"
 #include "ChunkObject.h"
+#include "Camera.h"
 #include "InputCommands.h"
 #include <vector>
 
@@ -51,6 +52,8 @@ public:
 	void SaveDisplayChunk(ChunkObject *SceneChunk);	//saves geometry et al
 	void ClearDisplayList();
 
+
+
 #ifdef DXTK_AUDIO
 	void NewAudioDevice();
 #endif
@@ -68,17 +71,18 @@ private:
 	std::vector<DisplayObject>			m_displayList;
 	DisplayChunk						m_displayChunk;
 	InputCommands						m_InputCommands;
+	Camera								m_camera;
 
-	//functionality
-	float								m_movespeed;
+	////functionality
+	//float								m_movespeed;
 
-	//camera
-	DirectX::SimpleMath::Vector3		m_camPosition;
-	DirectX::SimpleMath::Vector3		m_camOrientation;
-	DirectX::SimpleMath::Vector3		m_camLookAt;
-	DirectX::SimpleMath::Vector3		m_camLookDirection;
-	DirectX::SimpleMath::Vector3		m_camRight;
-	float m_camRotRate;
+	////camera
+	//DirectX::SimpleMath::Vector3		m_camPosition;
+	//DirectX::SimpleMath::Vector3		m_camOrientation;
+	//DirectX::SimpleMath::Vector3		m_camLookAt;
+	//DirectX::SimpleMath::Vector3		m_camLookDirection;
+	//DirectX::SimpleMath::Vector3		m_camRight;
+	//float m_camRotRate;
 
 	//control variables
 	bool m_grid;							//grid rendering on / off
@@ -92,6 +96,7 @@ private:
     std::unique_ptr<DirectX::GamePad>       m_gamePad;
     std::unique_ptr<DirectX::Keyboard>      m_keyboard;
     std::unique_ptr<DirectX::Mouse>         m_mouse;
+	//std::unique_ptr<Camera>					m_camera;
 
     // DirectXTK objects.
     std::unique_ptr<DirectX::CommonStates>                                  m_states;

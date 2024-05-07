@@ -306,12 +306,25 @@ void ToolMain::UpdateInput(MSG * msg)
 		break;
 
 	case WM_MOUSEMOVE:
+		m_toolInputCommands.mouseX = GET_X_LPARAM(msg->lParam);
+		m_toolInputCommands.mouseY = GET_Y_LPARAM(msg->lParam);
 		break;
 
 	case WM_LBUTTONDOWN:	//mouse button down,  you will probably need to check when its up too
+		m_toolInputCommands.mouseLDown = true;
 		//set some flag for the mouse button in inputcommands
 		break;
+	case WM_LBUTTONUP:	// Left mouse button 
+		m_toolInputCommands.mouseLDown = false;
+		break;
+	case WM_RBUTTONDOWN:
+		m_toolInputCommands.mouseRDown = true;
+		break;
 
+	case WM_RBUTTONUP:
+		m_toolInputCommands.mouseRDown = false;
+		break;
+	
 	}
 	//here we update all the actual app functionality that we want.  This information will either be used int toolmain, or sent down to the renderer (Camera movement etc
 	//WASD movement
@@ -348,6 +361,16 @@ void ToolMain::UpdateInput(MSG * msg)
 		m_toolInputCommands.rotLeft = true;
 	}
 	else m_toolInputCommands.rotLeft = false;
-
+	// Up down keyboard
+	if (m_keyArray['Z'])
+	{
+		m_toolInputCommands.Up = true;
+	}
+	else m_toolInputCommands.Up = false;
+	if (m_keyArray['X'])
+	{
+		m_toolInputCommands.Down = true;
+	}
+	else m_toolInputCommands.Down = false;
 	//WASD
 }
