@@ -24,7 +24,6 @@
 #include <functional>
 #include <assert.h>
 #include <memory.h>
-#include <d3d12.h>
 
 #include <DirectXMath.h>
 #include <DirectXPackedVector.h>

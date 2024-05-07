@@ -1,14 +1,45 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Win32SimpleSample.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   Camera.cpp
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Camera.cpp(82,87): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Camera.cpp(82,63): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Camera.cpp(84,86): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Camera.cpp(84,62): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Camera.cpp(99,67): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Camera.cpp(100,29): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Camera.cpp(101,67): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Camera.cpp(157,86): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Camera.cpp(157,62): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Camera.cpp(83,87): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Camera.cpp(83,63): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Camera.cpp(85,86): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Camera.cpp(85,62): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Camera.cpp(100,66): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Camera.cpp(101,28): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Camera.cpp(102,66): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Camera.cpp(158,86): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Camera.cpp(158,62): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  ChunkObject.cpp
+  DeviceResources.cpp
+  DisplayChunk.cpp
+E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\DisplayChunk.cpp(14,50): warning C4305: '=': truncation from 'double' to 'float'
+E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\DisplayChunk.cpp(15,49): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\DisplayChunk.cpp(74,185): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\DisplayChunk.cpp(74,81): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\DisplayChunk.cpp(94,10): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\DisplayChunk.cpp(152,10): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\DisplayChunk.cpp(189,30): warning C4101: 'index4': unreferenced local variable
+E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\DisplayChunk.cpp(189,14): warning C4101: 'index2': unreferenced local variable
+E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\DisplayChunk.cpp(189,22): warning C4101: 'index3': unreferenced local variable
+E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\DisplayChunk.cpp(189,6): warning C4101: 'index1': unreferenced local variable
+  DisplayObject.cpp
+  Game.cpp
+E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Game.cpp(194,57): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Game.cpp(193,57): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Game.cpp(192,97): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Game.cpp(178,10): warning C4101: 'Buffer': unreferenced local variable
+  Main.cpp
+  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
+  MFCFrame.cpp
+  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
+  MFCRenderFrame.cpp
+  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
+  pch.cpp
+  MFCMain.cpp
+  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
+  SceneObject.cpp
+  SelectDialogue.cpp
+  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
   ToolMain.cpp
   _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
 E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\ToolMain.cpp(91,46): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
@@ -39,4 +70,6 @@ E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\ToolMain.cpp(141,56): warning C4244: '='
 E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\ToolMain.cpp(142,54): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\ToolMain.cpp(143,57): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   Generating Code...
+  sqlite3.c
+E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\sqlite3.c(29693,7): warning C4996: 'GetVersionExW': was declared deprecated
   Win32SimpleSample.vcxproj -> E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Debug\WoFEdit.exe

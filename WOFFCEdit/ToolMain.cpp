@@ -309,7 +309,6 @@ void ToolMain::UpdateInput(MSG * msg)
 		m_toolInputCommands.mouseX = GET_X_LPARAM(msg->lParam);
 		m_toolInputCommands.mouseY = GET_Y_LPARAM(msg->lParam);
 		break;
-
 	case WM_LBUTTONDOWN:	//mouse button down,  you will probably need to check when its up too
 		m_toolInputCommands.mouseLDown = true;
 		//set some flag for the mouse button in inputcommands
@@ -324,7 +323,7 @@ void ToolMain::UpdateInput(MSG * msg)
 	case WM_RBUTTONUP:
 		m_toolInputCommands.mouseRDown = false;
 		break;
-	
+
 	}
 	//here we update all the actual app functionality that we want.  This information will either be used int toolmain, or sent down to the renderer (Camera movement etc
 	//WASD movement
@@ -333,7 +332,7 @@ void ToolMain::UpdateInput(MSG * msg)
 		m_toolInputCommands.forward = true;
 	}
 	else m_toolInputCommands.forward = false;
-	
+
 	if (m_keyArray['S'])
 	{
 		m_toolInputCommands.back = true;

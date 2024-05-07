@@ -24,34 +24,6 @@ Game::Game()
 	//modes
 	m_grid = false;
 
-	////functional
-	//m_movespeed = 0.30;
-	//m_camRotRate = 3.0;
-
-	////camera
-	//m_camPosition.x = 0.0f;
-	//m_camPosition.y = 3.7f;
-	//m_camPosition.z = -3.5f;
-
-	//m_camOrientation.x = 0;
-	//m_camOrientation.y = 0;
-	//m_camOrientation.z = 0;
-
-	//m_camLookAt.x = 0.0f;
-	//m_camLookAt.y = 0.0f;
-	//m_camLookAt.z = 0.0f;
-
-	//m_camLookDirection.x = 0.0f;
-	//m_camLookDirection.y = 0.0f;
-	//m_camLookDirection.z = 0.0f;
-
-	//m_camRight.x = 0.0f;
-	//m_camRight.y = 0.0f;
-	//m_camRight.z = 0.0f;
-
-	//m_camOrientation.x = 0.0f;
-	//m_camOrientation.y = 0.0f;
-	//m_camOrientation.z = 0.0f;
 
 }
 
@@ -69,14 +41,13 @@ Game::~Game()
 // Initialize the Direct3D resources required to run.
 void Game::Initialize(HWND window, int width, int height)
 {
-	
     m_gamePad = std::make_unique<GamePad>();
 
     m_keyboard = std::make_unique<Keyboard>();
 
     m_mouse = std::make_unique<Mouse>();
     m_mouse->SetWindow(window);
-	//m_camera = std::make_unique<Camera>();
+
     m_deviceResources->SetWindow(window, width, height);
 
     m_deviceResources->CreateDeviceResources();
@@ -85,7 +56,7 @@ void Game::Initialize(HWND window, int width, int height)
     m_deviceResources->CreateWindowSizeDependentResources();
     CreateWindowSizeDependentResources();
 
-    m_camera = Camera(0.3f,50.f,Vector3(0.f, 3.7f, -3.5f), Vector3(0.f, 0.f, 0.f), width,height);
+    m_camera = Camera(0.3f, 50.f, Vector3(0.f, 3.7f, -3.5f), Vector3(0.f, 0.f, 0.f), width, height);
 
 #ifdef DXTK_AUDIO
     // Create DirectXTK for Audio objects
@@ -143,8 +114,6 @@ void Game::Tick(InputCommands *Input)
 // Updates the world.
 void Game::Update(DX::StepTimer const& timer)
 {
-    float time = timer.GetElapsedSeconds();
-
     m_camera.HandleInput(m_InputCommands);
     m_view = m_camera.GetLookAt();
 
@@ -207,7 +176,7 @@ void Game::Render()
 	//CAMERA POSITION ON HUD
 	m_sprites->Begin();
 	WCHAR   Buffer[256];
-    std::wstring var = L"Cam X: " + std::to_wstring(m_camera.m_camPosition.x) + L"Cam Z: " + std::to_wstring((m_camera.m_camPosition.z));
+    std::wstring var = L"Cam X: " + std::to_wstring(m_camera.m_camPosition.x) + L"   Cam Y: " + std::to_wstring((m_camera.m_camPosition.y)) + L"    Cam Z: " + std::to_wstring((m_camera.m_camPosition.z));
 	m_font->DrawString(m_sprites.get(), var.c_str() , XMFLOAT2(100, 10), Colors::Yellow);
 	m_sprites->End();
 

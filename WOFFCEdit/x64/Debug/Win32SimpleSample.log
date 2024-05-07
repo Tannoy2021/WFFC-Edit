@@ -1,0 +1,6 @@
+﻿  Camera.cpp
+E:\CMP405-Tools-Programming-WFFC-Edit-master\CMP405-Tools-Programming-WFFC-Edit-master\WOFFCEdit\Camera.cpp(103,69): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+E:\CMP405-Tools-Programming-WFFC-Edit-master\CMP405-Tools-Programming-WFFC-Edit-master\WOFFCEdit\Camera.cpp(134,67): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+E:\CMP405-Tools-Programming-WFFC-Edit-master\CMP405-Tools-Programming-WFFC-Edit-master\WOFFCEdit\Camera.cpp(135,25): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+E:\CMP405-Tools-Programming-WFFC-Edit-master\CMP405-Tools-Programming-WFFC-Edit-master\WOFFCEdit\Camera.cpp(136,67): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Win32SimpleSample.vcxproj -> E:\CMP405-Tools-Programming-WFFC-Edit-master\CMP405-Tools-Programming-WFFC-Edit-master\WOFFCEdit\x64\Debug\WoFEdit.exe

@@ -11,7 +11,7 @@ class Camera
 public:
 
 	Camera();
-	Camera(float cameraSpeed, float cameraRotation,DirectX::SimpleMath::Vector3 cameraPos, DirectX::SimpleMath::Vector3 cameraOrientation, int width , int height);
+	Camera(float cameraSpeed, float cameraRotation, DirectX::SimpleMath::Vector3 cameraPos, DirectX::SimpleMath::Vector3 cameraOrientation, int width, int height);
 	~Camera();
 	//camera
 	DirectX::SimpleMath::Vector3		m_camPosition;

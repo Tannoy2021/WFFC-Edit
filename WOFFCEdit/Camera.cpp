@@ -1,3 +1,4 @@
+
 #include "Camera.h"
 
 Camera::Camera()
@@ -32,44 +33,44 @@ Camera::Camera()
 	//m_camOrientation.z = 0.0f;
 }
 
-Camera::Camera(float camerasped, float camerarotation,DirectX::SimpleMath::Vector3 cameraPos, DirectX::SimpleMath::Vector3 cameraOrientation, int width, int height)
+Camera::Camera(float camerasped, float camerarotation, DirectX::SimpleMath::Vector3 cameraPos, DirectX::SimpleMath::Vector3 cameraOrientation, int width, int height)
 {
-			//functional
+	//functional
 	m_movespeed = camerasped;
 	m_camRotRate = camerarotation;
 
-		//camera
-		m_camPosition = cameraPos;	
-		m_camOrientation = cameraOrientation;
-		
+	//camera
+	m_camPosition = cameraPos;
+	m_camOrientation = cameraOrientation;
 
-		m_camLookAt.x = 0.0f;
-		m_camLookAt.y = 0.0f;
-		m_camLookAt.z = 0.0f;
 
-		m_camLookDirection.x = 0.0f;
-		m_camLookDirection.y = 0.0f;
-		m_camLookDirection.z = 0.0f;
+	m_camLookAt.x = 0.0f;
+	m_camLookAt.y = 0.0f;
+	m_camLookAt.z = 0.0f;
 
-		m_camRight.x = 0.0f;
-		m_camRight.y = 0.0f;
-		m_camRight.z = 0.0f;
+	m_camLookDirection.x = 0.0f;
+	m_camLookDirection.y = 0.0f;
+	m_camLookDirection.z = 0.0f;
 
-		middleX = height / 2;
-		middleY = width / 2;
-	
+	m_camRight.x = 0.0f;
+	m_camRight.y = 0.0f;
+	m_camRight.z = 0.0f;
 
-		HandleInput(InputCommands());
+	middleX = height / 2;
+	middleY = width / 2;
+
+
+	HandleInput(InputCommands());
 }
 
 Camera::~Camera()
 {
-	
+
 }
 
 void Camera::HandleInput(InputCommands m_InputCommands)
 {
-	
+
 	DirectX::SimpleMath::Vector3 planarMotionVector = m_camLookDirection;
 	planarMotionVector.y = 0.0;
 	planarMotionVector.Normalize();
@@ -77,18 +78,18 @@ void Camera::HandleInput(InputCommands m_InputCommands)
 	m_camOrientation.x = std::min(std::max(m_camOrientation.x, -89.f), 89.f);
 	//m_camOrientation.y = std::min(std::max(m_camOrientation.y, -179.f), 179.f);
 
-	if(!m_InputCommands.mouseLDown)
+	if (!m_InputCommands.mouseLDown)
 	{
 		m_oldMousePos = DirectX::SimpleMath::Vector2(m_InputCommands.mouseX, m_InputCommands.mouseY);
 	}
 	m_newMousePos = DirectX::SimpleMath::Vector2(m_InputCommands.mouseX, m_InputCommands.mouseY) - m_oldMousePos;
-	
+
 
 	m_camOrientation.y += m_newMousePos.x * m_camRotRate / 100;
 	m_camOrientation.x -= m_newMousePos.y * m_camRotRate / 100;
 
 
-		
+
 
 	//	//create look direction from Euler angles in m_camOrientation
 	//	m_camLookDirection.x = sin((m_camOrientation.y) * 3.1415 / 180);
@@ -96,10 +97,10 @@ void Camera::HandleInput(InputCommands m_InputCommands)
 	//	m_camLookDirection.Normalize();
 
 		//create look direction from Euler angles in m_camOrientation
-		m_camLookDirection.x = cos((m_camOrientation.y) * 3.1415 / 180) * cos((m_camOrientation.x) * 3.1415 / 180.0f);
-		m_camLookDirection.y = sin((m_camOrientation.x) * 3.1415 / 180);
-		m_camLookDirection.z = sin((m_camOrientation.y) * 3.1415 / 180) * cos((m_camOrientation.x) * 3.1415 / 180.0f);
-		m_camLookDirection.Normalize();
+	m_camLookDirection.x = cos((m_camOrientation.y) * 3.1415 / 180) * cos((m_camOrientation.x) * 3.1415 / 180.0f);
+	m_camLookDirection.y = sin((m_camOrientation.x) * 3.1415 / 180);
+	m_camLookDirection.z = sin((m_camOrientation.y) * 3.1415 / 180) * cos((m_camOrientation.x) * 3.1415 / 180.0f);
+	m_camLookDirection.Normalize();
 
 	//create right vector from look Direction
 	m_camLookDirection.Cross(DirectX::SimpleMath::Vector3::UnitY, m_camRight);
