@@ -279,6 +279,11 @@ void ToolMain::onActionSaveTerrain()
 
 void ToolMain::Tick(MSG *msg)
 {
+	if(m_toolInputCommands.mouseRDown)
+	{
+		m_selectedObject = m_d3dRenderer.MousePicking();
+		m_toolInputCommands.mouseRDown = false;
+	}
 	//do we have a selection
 	//do we have a mode
 	//are we clicking / dragging /releasing

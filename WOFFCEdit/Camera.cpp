@@ -59,6 +59,7 @@ Camera::Camera(float camerasped, float camerarotation, DirectX::SimpleMath::Vect
 	middleX = height / 2;
 	middleY = width / 2;
 
+	int ID = -1;
 
 	HandleInput(InputCommands());
 }
@@ -156,12 +157,23 @@ void Camera::HandleInput(InputCommands m_InputCommands)
 	//apply camera vectors
 	//m_view = DirectX::SimpleMath::Matrix::CreateLookAt(m_camPosition, m_camLookAt, DirectX::SimpleMath::Vector3::UnitY);
 	m_oldMousePos = DirectX::SimpleMath::Vector2(m_InputCommands.mouseX, m_InputCommands.mouseY);
+
 }
 
 DirectX::SimpleMath::Matrix Camera::GetLookAt()
 {
 	//apply camera vectors
 	return DirectX::SimpleMath::Matrix::CreateLookAt(m_camPosition, m_camLookAt, DirectX::SimpleMath::Vector3::UnitY);
+}
+
+void Camera::SetCameraPosition(const DirectX::SimpleMath::Vector3& position)
+{
+	m_camPosition = position;
+}
+
+void Camera::SetCameraOrientation(const DirectX::SimpleMath::Vector3& orientation)
+{
+	m_camOrientation = orientation;
 }
 
 

@@ -51,6 +51,7 @@ public:
 	void BuildDisplayChunk(ChunkObject *SceneChunk);
 	void SaveDisplayChunk(ChunkObject *SceneChunk);	//saves geometry et al
 	void ClearDisplayList();
+	int	 MousePicking();
 
 #ifdef DXTK_AUDIO
 	void NewAudioDevice();
@@ -85,6 +86,7 @@ private:
 	bool m_grid;							//grid rendering on / off
 	// Device resources.
     std::shared_ptr<DX::DeviceResources>    m_deviceResources;
+	RECT		m_ScreenDimensions;
 
     // Rendering loop timer.
     DX::StepTimer                           m_timer;

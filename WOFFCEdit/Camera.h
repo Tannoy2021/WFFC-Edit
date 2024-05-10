@@ -31,6 +31,8 @@ public:
 	DirectX::SimpleMath::Vector2		m_newMousePos;
 	//void Update(DX::StepTimer const& timer, InputCommands m_InputCommands);
 	void HandleInput(InputCommands m_InputCommands);
+	void SetCameraPosition(const DirectX::SimpleMath::Vector3& position);
+	void SetCameraOrientation(const DirectX::SimpleMath::Vector3& orientation);
 	DirectX::SimpleMath::Matrix GetLookAt();
 };
 
