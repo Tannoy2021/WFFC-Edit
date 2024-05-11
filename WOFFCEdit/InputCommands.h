@@ -23,4 +23,12 @@ struct InputCommands
 	//bool mouseLUP;
 	bool mouseLDown;
 	bool mouseRDown;
+
+	bool manipulationRotation;
+
+	bool enableManipulation;
+	bool manipulationUp;
+	bool manipulationDown;
+	bool manipulationLeft;
+	bool manipulationRight;
 };

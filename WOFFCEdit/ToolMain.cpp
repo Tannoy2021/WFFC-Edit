@@ -284,6 +284,29 @@ void ToolMain::Tick(MSG *msg)
 		m_selectedObject = m_d3dRenderer.MousePicking();
 		m_toolInputCommands.mouseRDown = false;
 	}
+	if(m_toolInputCommands.manipulationRotation)
+	{
+		m_selectedObject = m_d3dRenderer.RotateObject();
+	}
+	if(m_toolInputCommands.enableManipulation)
+	{
+		if (m_toolInputCommands.manipulationUp)
+		{
+			m_selectedObject = m_d3dRenderer.MoveObjectUp();
+		}
+		if (m_toolInputCommands.manipulationDown)
+		{
+			m_selectedObject = m_d3dRenderer.MoveObjectDown();
+		}
+		if (m_toolInputCommands.manipulationLeft)
+		{
+			m_selectedObject = m_d3dRenderer.MoveObjectLeft();
+		}
+		if (m_toolInputCommands.manipulationRight)
+		{
+			m_selectedObject = m_d3dRenderer.MoveObjectRight();
+		}
+	}
 	//do we have a selection
 	//do we have a mode
 	//are we clicking / dragging /releasing
@@ -377,4 +400,36 @@ void ToolMain::UpdateInput(MSG * msg)
 	}
 	else m_toolInputCommands.Down = false;
 	//WASD
+	if (m_keyArray['R'])
+	{
+		m_toolInputCommands.manipulationRotation = true;
+	}
+	else m_toolInputCommands.manipulationRotation = false;
+	if (m_keyArray['M'])
+	{
+		m_toolInputCommands.enableManipulation = true;
+	}
+	else m_toolInputCommands.enableManipulation = false;
+
+	// manipulation movement
+	if (m_keyArray['1'])
+	{
+		m_toolInputCommands.manipulationUp = true;
+	}
+	else m_toolInputCommands.manipulationUp = false;
+	if (m_keyArray['2'])
+	{
+		m_toolInputCommands.manipulationDown = true;
+	}
+	else m_toolInputCommands.manipulationDown = false;
+	if (m_keyArray['3'])
+	{
+		m_toolInputCommands.manipulationLeft = true;
+	}
+	else m_toolInputCommands.manipulationLeft = false;
+	if (m_keyArray['4'])
+	{
+		m_toolInputCommands.manipulationRight = true;
+	}
+	else m_toolInputCommands.manipulationRight = false;
 }

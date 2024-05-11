@@ -52,6 +52,13 @@ public:
 	void SaveDisplayChunk(ChunkObject *SceneChunk);	//saves geometry et al
 	void ClearDisplayList();
 	int	 MousePicking();
+	int RotateObject();
+	int rotationSpeed = 1.f;
+	int MoveObjectUp();
+	int MoveObjectDown();
+	int MoveObjectLeft();
+	int MoveObjectRight();
+	int movementSpeed = 1.f;
 
 #ifdef DXTK_AUDIO
 	void NewAudioDevice();

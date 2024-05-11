@@ -123,6 +123,7 @@ void Game::Update(DX::StepTimer const& timer)
 	m_displayChunk.m_terrainEffect->SetView(m_view);
 	m_displayChunk.m_terrainEffect->SetWorld(Matrix::Identity);
 
+
 #ifdef DXTK_AUDIO
     m_audioTimerAcc -= (float)timer.GetElapsedSeconds();
     if (m_audioTimerAcc < 0)
@@ -217,6 +218,7 @@ int Game::MousePicking()
 {
     int selectedID = -1;
     float pickedDistance = 0;
+    float Distance2 = FLT_MAX;
 
     //setup near and far planes of frustum with mouse X and mouse y passed down from Toolmain. 
         //they may look the same but note, the difference in Z
@@ -256,19 +258,24 @@ int Game::MousePicking()
             if (m_displayList[i].m_model.get()->meshes[y]->boundingBox.Intersects(nearPoint, pickingVector, pickedDistance))
             {
                 // Update the selectedID and selectedPosition
-                selectedID = i;
-                selectedPosition = m_displayList[i].m_position;
+                if (pickedDistance < Distance2)
+                {
+                    // this way we stop at the first object 
+                    Distance2 = pickedDistance;
+                    selectedID = i;
+                    selectedPosition = m_displayList[i].m_position;
+                }
             }
         }
     }
 
-    if (selectedID != -1)
+    while (selectedID != -1)
     {
         //Set the camera position to objectID position
         //add offset
         selectedPosition = selectedPosition + DirectX::SimpleMath::Vector3(0.0f, 4.0f, 0.0f);
         m_camera.SetCameraPosition(selectedPosition);
-
+        break;
         //DirectX::SimpleMath::Vector3 direction = selectedPosition;
         //direction.Normalize();
 
@@ -286,9 +293,108 @@ int Game::MousePicking()
         //m_camera.SetCameraOrientation(direction);
 
     }
+    for(int i = 0; i < m_displayList.size(); i++)
+    {
+        if (i == selectedID)
+        {
+            auto device = m_deviceResources->GetD3DDevice();
+            CreateDDSTextureFromFile(device, L"database/data/Tiny_skin.dds", nullptr, &m_displayList[i].m_texture_diffuse);	//load tex into Shader resource
 
+            //apply new texture to models effect
+            m_displayList[i].m_model->UpdateEffects([&](IEffect* effect)
+                {//This uses a Lambda function,  if you dont understand it: Look it up.
+                    auto lights = dynamic_cast<BasicEffect*>(effect);
+            if (lights)
+            {
+                lights->SetTexture(m_displayList[i].m_texture_diffuse);
+                lights->SetDiffuseColor(Colors::YellowGreen);
+            }
+                });
+        }
+        //else
+        //{
+        //    auto device = m_deviceResources->GetD3DDevice();
+        //    CreateDDSTextureFromFile(device, L"database/data/placeholder1.dds", nullptr, &m_displayList[i].m_texture_diffuse);	//load tex into Shader resource
+
+        //    //apply new texture to models effect
+        //    m_displayList[i].m_model->UpdateEffects([&](IEffect* effect)
+        //        {//This uses a Lambda function,  if you dont understand it: Look it up.
+        //            auto lights = dynamic_cast<BasicEffect*>(effect);
+        //    if (lights)
+        //    {
+        //        lights->SetTexture(m_displayList[i].m_texture_diffuse);
+        //        lights->SetDiffuseColor(Colors::White);
+        //    }
+        //        });
+        //}
+    }
+    // database/data/Error.dds"
     //if we got a hit.  return it.  
     return selectedID;
+}
+
+int Game::RotateObject()
+{
+    int selectedID = MousePicking();
+    if (selectedID != -1)
+    {
+        m_displayList[selectedID].m_orientation.x = std::min(std::max(m_displayList[selectedID].m_orientation.x, -359.f), 359.f);
+        m_displayList[selectedID].m_orientation.y = std::min(std::max(m_displayList[selectedID].m_orientation.y, -359.f), 359.f);
+        m_displayList[selectedID].m_orientation.z = std::min(std::max(m_displayList[selectedID].m_orientation.z, -359.f), 359.f);
+        m_displayList[selectedID].m_orientation.x += rotationSpeed * 2;
+        if(m_displayList[selectedID].m_orientation.x >358.9f)
+        {
+            m_displayList[selectedID].m_orientation.x = 0.0f;
+        }
+        m_displayList[selectedID].m_orientation.y += rotationSpeed * 2;
+        if (m_displayList[selectedID].m_orientation.y > 358.9f)
+        {
+            m_displayList[selectedID].m_orientation.y = 0.0f;
+        }
+        m_displayList[selectedID].m_orientation.z += rotationSpeed * 2;
+        if (m_displayList[selectedID].m_orientation.z > 358.9f)
+        {
+            m_displayList[selectedID].m_orientation.z = 0.0f;
+        }
+    }
+    else return selectedID;
+}
+
+int Game::MoveObjectUp()
+{
+    int selectedID = MousePicking();
+    if (selectedID != -1)
+    {
+        m_displayList[selectedID].m_position.y += rotationSpeed * 2;
+    }
+    else return selectedID;
+}
+int Game::MoveObjectDown()
+{
+    int selectedID = MousePicking();
+    if (selectedID != -1)
+    {
+        m_displayList[selectedID].m_position.y -= rotationSpeed * 2;
+    }
+    else return selectedID;
+}
+int Game::MoveObjectLeft()
+{
+    int selectedID = MousePicking();
+    if (selectedID != -1)
+    {
+        m_displayList[selectedID].m_position.x -= rotationSpeed * 2;
+    }
+    else return selectedID;
+}
+int Game::MoveObjectRight()
+{
+    int selectedID = MousePicking();
+    if (selectedID != -1)
+    {
+        m_displayList[selectedID].m_position.x += rotationSpeed * 2;
+    }
+    else return selectedID;
 }
 
 
