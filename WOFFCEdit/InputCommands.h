@@ -31,4 +31,14 @@ struct InputCommands
 	bool manipulationDown;
 	bool manipulationLeft;
 	bool manipulationRight;
+	bool manipulationScaleUp;
+	bool manipulationScaleDown;
+	bool manipulationMoveObject;
+
+	bool generateObject;
+
+	bool deleteObject;
+	bool gotoObject;
+
+	
 };

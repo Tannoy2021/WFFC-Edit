@@ -14,7 +14,6 @@ using namespace DirectX::SimpleMath;
 using Microsoft::WRL::ComPtr;
 
 Game::Game()
-
 {
     m_deviceResources = std::make_unique<DX::DeviceResources>();
     m_deviceResources->RegisterDeviceNotify(this);
@@ -112,6 +111,174 @@ void Game::Tick(InputCommands *Input)
     Render();
 }
 
+
+void Game::DeleteObject(int id)
+{
+    m_displayList.erase(m_displayList.begin() + id);
+}
+
+void Game::CreateObject()
+{
+
+    int selectedID = MousePicking();
+
+    //setup near and far planes of frustum with mouse X and mouse y passed down from Toolmain. 
+	//they may look the same but note, the difference in Z
+    const XMVECTOR nearSource = XMVectorSet(m_InputCommands.mouseX, m_InputCommands.mouseY, 0.0f, 1.0f);
+    const XMVECTOR farSource = XMVectorSet(m_InputCommands.mouseX, m_InputCommands.mouseY, 1.0f, 1.0f);
+
+    DirectX::SimpleMath::Vector3 selectedPosition;
+
+
+        //Unproject the points on the near and far plane, with respect to the matrix we just created.
+        XMVECTOR nearPoint = XMVector3Unproject(nearSource, 0.0f, 0.0f, m_ScreenDimensions.right, m_ScreenDimensions.bottom, m_deviceResources->GetScreenViewport().MinDepth, m_deviceResources->GetScreenViewport().MaxDepth, m_projection, m_view, m_world);
+
+        XMVECTOR farPoint = XMVector3Unproject(farSource, 0.0f, 0.0f, m_ScreenDimensions.right, m_ScreenDimensions.bottom, m_deviceResources->GetScreenViewport().MinDepth, m_deviceResources->GetScreenViewport().MaxDepth, m_projection, m_view, m_world);
+
+        //turn the transformed points into our picking vector. 
+        XMVECTOR pickingVector = farPoint - nearPoint;
+        pickingVector = XMVector3Normalize(pickingVector);
+        Vector3 Position = nearPoint + pickingVector;
+        selectedPosition = m_camera.GetCameraPosition();
+
+        auto device = m_deviceResources->GetD3DDevice();
+        auto devicecontext = m_deviceResources->GetD3DDeviceContext();
+
+        DisplayObject newDisplayObject;
+
+        //load model						//convect string to Wchar
+        newDisplayObject.m_model = Model::CreateFromCMO(device, L"database/data/placeholder.cmo", *m_fxFactory, true);	//get DXSDK to load model "False" for LH coordinate system (maya)
+        CreateDDSTextureFromFile(device, L"database/data/placeholder.dds", nullptr, &newDisplayObject.m_texture_diffuse);	//load tex into Shader resource
+
+        //apply new texture to models effect
+        newDisplayObject.m_model->UpdateEffects([&](IEffect* effect) //This uses a Lambda function,  if you dont understand it: Look it up.
+            {
+                auto lights = dynamic_cast<BasicEffect*>(effect);
+        if (lights)
+        {
+            lights->SetTexture(newDisplayObject.m_texture_diffuse);
+        }
+            });
+
+        //set position
+        newDisplayObject.m_position.x = selectedPosition.x;
+        newDisplayObject.m_position.y = selectedPosition.y;
+        newDisplayObject.m_position.z = selectedPosition.z;
+
+        //set scale
+        newDisplayObject.m_scale.x = m_displayList[selectedID].m_scale.x;
+        newDisplayObject.m_scale.y = m_displayList[selectedID].m_scale.y;
+        newDisplayObject.m_scale.z = m_displayList[selectedID].m_scale.z;
+
+
+       /* std::vector<SceneObject>* SceneGraph;
+
+        newDisplayObject.m_light_type = SceneGraph->at(selectedID).light_type;
+        newDisplayObject.m_light_diffuse_r = SceneGraph->at(selectedID).light_diffuse_r;
+        newDisplayObject.m_light_diffuse_g = SceneGraph->at(selectedID).light_diffuse_g;
+        newDisplayObject.m_light_diffuse_b = SceneGraph->at(selectedID).light_diffuse_b;
+        newDisplayObject.m_light_specular_r = SceneGraph->at(selectedID).light_specular_r;
+        newDisplayObject.m_light_specular_g = SceneGraph->at(selectedID).light_specular_g;
+        newDisplayObject.m_light_specular_b = SceneGraph->at(selectedID).light_specular_b;
+        newDisplayObject.m_light_spot_cutoff = SceneGraph->at(selectedID).light_spot_cutoff;
+        newDisplayObject.m_light_constant = SceneGraph->at(selectedID).light_constant;
+        newDisplayObject.m_light_linear = SceneGraph->at(selectedID).light_linear;
+        newDisplayObject.m_light_quadratic = SceneGraph->at(selectedID).light_quadratic;*/
+
+        newDisplayObject.m_render = true;
+
+        m_displayList.push_back(newDisplayObject);
+       
+}
+
+int Game::TriggerCreationOnce()
+{
+ 
+	CreateObject();
+     return -1;
+}
+
+void Game::DeselectObject()
+{
+}
+
+int Game::ScaleObjectUp()
+{
+    int selectedID = MousePicking();
+    if (selectedID != -1)
+    {
+        m_displayList[selectedID].m_scale.x = 3.f;
+        m_displayList[selectedID].m_scale.y = 3.f;
+        m_displayList[selectedID].m_scale.z = 3.f;
+
+    }
+    else return selectedID;
+}
+
+int Game::ScaleObjectDown()
+{
+    int selectedID = MousePicking();
+    if (selectedID != -1)
+    {
+        m_displayList[selectedID].m_scale.x = 1.f;
+        m_displayList[selectedID].m_scale.y = 1.f;
+        m_displayList[selectedID].m_scale.z = 1.f;
+
+    }
+    else return selectedID;
+}
+
+int Game::MoveObjectWithMouseLeftB()
+{
+    int selectedID = MousePicking();
+    if (selectedID != -1)
+    {
+        Vector3 getCameraPos = m_camera.GetCameraPosition();
+        m_displayList[selectedID].m_position.x = getCameraPos.x - 1.f;
+        m_displayList[selectedID].m_position.y = getCameraPos.y;
+        m_displayList[selectedID].m_position.z = getCameraPos.z - 1.f;
+    }
+    else return selectedID;
+}
+
+int Game::HighlightObject()
+{
+    int selectedID = MousePicking();
+    if (selectedID != -1)
+    {
+        auto device = m_deviceResources->GetD3DDevice();
+        CreateDDSTextureFromFile(device, L"database/data/Tiny_skin.dds", nullptr, &m_displayList[selectedID].m_texture_diffuse);	//load tex into Shader resource
+
+        //apply new texture to models effect
+        m_displayList[selectedID].m_model->UpdateEffects([&](IEffect* effect)
+            {//This uses a Lambda function,  if you dont understand it: Look it up.
+                auto lights = dynamic_cast<BasicEffect*>(effect);
+        if (lights)
+        {
+            lights->SetTexture(m_displayList[selectedID].m_texture_diffuse);
+            lights->SetDiffuseColor(Colors::YellowGreen);
+        }
+            });
+    }
+    else return selectedID;
+}
+
+int Game::FocusOnObject()
+{
+    int selectedID = MousePicking();
+    while (selectedID != -1)
+    {
+        DirectX::SimpleMath::Vector3 selectedPosition;
+        //Set the camera position to objectID position
+        //add offset
+        selectedPosition = m_displayList[selectedID].m_position;
+        selectedPosition = selectedPosition + DirectX::SimpleMath::Vector3(0.0f, 4.0f, 0.0f);
+         m_camera.SetCameraPosition(selectedPosition);
+        break;
+    }
+     return -1;
+}
+
 // Updates the world.
 void Game::Update(DX::StepTimer const& timer)
 {
@@ -178,7 +345,7 @@ void Game::Render()
 	//CAMERA POSITION ON HUD
 	m_sprites->Begin();
 	WCHAR   Buffer[256];
-    std::wstring var = L"Cam X: " + std::to_wstring(m_camera.m_camPosition.x) + L"   Cam Y: " + std::to_wstring((m_camera.m_camPosition.y)) + L"    Cam Z: " + std::to_wstring((m_camera.m_camPosition.z));
+    std::wstring var = L"Cam X: " + std::to_wstring(m_camera.m_camPosition.x) + L"   Cam Y: " + std::to_wstring((m_camera.m_camPosition.y)) + L"    Cam Z: " + std::to_wstring((m_camera.m_camPosition.z)) + L"    Objects: " + std::to_wstring((m_displayList.size()));
 	m_font->DrawString(m_sprites.get(), var.c_str() , XMFLOAT2(100, 10), Colors::Yellow);
 	m_sprites->End();
 
@@ -264,6 +431,7 @@ int Game::MousePicking()
                     Distance2 = pickedDistance;
                     selectedID = i;
                     selectedPosition = m_displayList[i].m_position;
+
                 }
             }
         }
@@ -274,62 +442,20 @@ int Game::MousePicking()
         //Set the camera position to objectID position
         //add offset
         selectedPosition = selectedPosition + DirectX::SimpleMath::Vector3(0.0f, 4.0f, 0.0f);
-        m_camera.SetCameraPosition(selectedPosition);
+       // m_camera.SetCameraPosition(selectedPosition);
         break;
-        //DirectX::SimpleMath::Vector3 direction = selectedPosition;
-        //direction.Normalize();
-
-        //direction.x = cos((direction.y) * 3.1415 / 180) * cos((direction.x) * 3.1415 / 180.0f);
-        //direction.y = sin((direction.x) * 3.1415 / 180);
-        //direction.z = sin((direction.y) * 3.1415 / 180) * cos((direction.x) * 3.1415 / 180.0f);
-        //direction.Normalize();
-
-
-        //direction.x = -direction.x;
-        //direction.y = -direction.y;
-        //direction.z = -direction.z;
-
-        ////Set the camera orientation
-        //m_camera.SetCameraOrientation(direction);
-
     }
     for(int i = 0; i < m_displayList.size(); i++)
     {
         if (i == selectedID)
         {
-            auto device = m_deviceResources->GetD3DDevice();
-            CreateDDSTextureFromFile(device, L"database/data/Tiny_skin.dds", nullptr, &m_displayList[i].m_texture_diffuse);	//load tex into Shader resource
-
-            //apply new texture to models effect
-            m_displayList[i].m_model->UpdateEffects([&](IEffect* effect)
-                {//This uses a Lambda function,  if you dont understand it: Look it up.
-                    auto lights = dynamic_cast<BasicEffect*>(effect);
-            if (lights)
-            {
-                lights->SetTexture(m_displayList[i].m_texture_diffuse);
-                lights->SetDiffuseColor(Colors::YellowGreen);
-            }
-                });
+            
         }
-        //else
-        //{
-        //    auto device = m_deviceResources->GetD3DDevice();
-        //    CreateDDSTextureFromFile(device, L"database/data/placeholder1.dds", nullptr, &m_displayList[i].m_texture_diffuse);	//load tex into Shader resource
-
-        //    //apply new texture to models effect
-        //    m_displayList[i].m_model->UpdateEffects([&](IEffect* effect)
-        //        {//This uses a Lambda function,  if you dont understand it: Look it up.
-        //            auto lights = dynamic_cast<BasicEffect*>(effect);
-        //    if (lights)
-        //    {
-        //        lights->SetTexture(m_displayList[i].m_texture_diffuse);
-        //        lights->SetDiffuseColor(Colors::White);
-        //    }
-        //        });
-        //}
+        
     }
-    // database/data/Error.dds"
-    //if we got a hit.  return it.  
+    if(selectedID == -1)
+    {
+    }
     return selectedID;
 }
 
@@ -366,8 +492,9 @@ int Game::MoveObjectUp()
     if (selectedID != -1)
     {
         m_displayList[selectedID].m_position.y += rotationSpeed * 2;
+        
     }
-    else return selectedID;
+    else return -1;
 }
 int Game::MoveObjectDown()
 {
@@ -376,7 +503,7 @@ int Game::MoveObjectDown()
     {
         m_displayList[selectedID].m_position.y -= rotationSpeed * 2;
     }
-    else return selectedID;
+    else return  -1;
 }
 int Game::MoveObjectLeft()
 {
@@ -385,7 +512,7 @@ int Game::MoveObjectLeft()
     {
         m_displayList[selectedID].m_position.x -= rotationSpeed * 2;
     }
-    else return selectedID;
+    else return  -1;
 }
 int Game::MoveObjectRight()
 {
@@ -393,8 +520,9 @@ int Game::MoveObjectRight()
     if (selectedID != -1)
     {
         m_displayList[selectedID].m_position.x += rotationSpeed * 2;
+        //CreateObject();
     }
-    else return selectedID;
+    else return - 1;
 }
 
 
@@ -518,6 +646,7 @@ void Game::BuildDisplayList(std::vector<SceneObject> * SceneGraph)
 		
 		//create a temp display object that we will populate then append to the display list.
 		DisplayObject newDisplayObject;
+        DisplayObject newCopyObject;
 		
 		//load model
 		std::wstring modelwstr = StringToWCHART(SceneGraph->at(i).model_path);							//convect string to Wchar
@@ -576,7 +705,8 @@ void Game::BuildDisplayList(std::vector<SceneObject> * SceneGraph)
 		newDisplayObject.m_light_quadratic	= SceneGraph->at(i).light_quadratic;
 		
 		m_displayList.push_back(newDisplayObject);
-		
+
+
 	}
 		
 		

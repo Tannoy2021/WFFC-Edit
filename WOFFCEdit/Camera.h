@@ -33,6 +33,8 @@ public:
 	void HandleInput(InputCommands m_InputCommands);
 	void SetCameraPosition(const DirectX::SimpleMath::Vector3& position);
 	void SetCameraOrientation(const DirectX::SimpleMath::Vector3& orientation);
+	DirectX::SimpleMath::Vector3 GetCameraPosition();
+	DirectX::SimpleMath::Vector3 GetCameraOrientation();
 	DirectX::SimpleMath::Matrix GetLookAt();
 };
 

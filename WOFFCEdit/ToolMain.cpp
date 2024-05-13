@@ -288,6 +288,10 @@ void ToolMain::Tick(MSG *msg)
 	{
 		m_selectedObject = m_d3dRenderer.RotateObject();
 	}
+	if(m_toolInputCommands.mouseLDown)
+	{
+		m_selectedObject = m_d3dRenderer.HighlightObject();
+	}
 	if(m_toolInputCommands.enableManipulation)
 	{
 		if (m_toolInputCommands.manipulationUp)
@@ -306,6 +310,36 @@ void ToolMain::Tick(MSG *msg)
 		{
 			m_selectedObject = m_d3dRenderer.MoveObjectRight();
 		}
+		if (m_toolInputCommands.manipulationScaleUp)
+		{
+			m_selectedObject = m_d3dRenderer.ScaleObjectUp();
+		}
+		if (m_toolInputCommands.manipulationScaleDown)
+		{
+			m_selectedObject = m_d3dRenderer.ScaleObjectDown();
+		}
+		
+		
+	}
+		if (m_toolInputCommands.generateObject && m_selectedObject != -1)
+		{
+			m_selectedObject = m_d3dRenderer.TriggerCreationOnce();
+		}
+	
+		if(m_selectedObject != -1 && m_toolInputCommands.deleteObject)
+		{
+		m_d3dRenderer.DeleteObject(m_selectedObject);
+		m_selectedObject = -1;
+		}
+	if(m_selectedObject != -1 && m_toolInputCommands.gotoObject)
+	{
+		m_d3dRenderer.FocusOnObject();
+		m_selectedObject = -1;
+	}
+	if (m_selectedObject != -1 && m_toolInputCommands.manipulationMoveObject && m_toolInputCommands.mouseLDown)
+	{
+		m_d3dRenderer.MoveObjectWithMouseLeftB();
+		//m_selectedObject = -1;
 	}
 	//do we have a selection
 	//do we have a mode
@@ -432,4 +466,34 @@ void ToolMain::UpdateInput(MSG * msg)
 		m_toolInputCommands.manipulationRight = true;
 	}
 	else m_toolInputCommands.manipulationRight = false;
+	if (m_keyArray['5'])
+	{
+		m_toolInputCommands.manipulationScaleUp = true;
+	}
+	else m_toolInputCommands.manipulationScaleUp = false;
+	if (m_keyArray['6'])
+	{
+		m_toolInputCommands.manipulationScaleDown = true;
+	}
+	else m_toolInputCommands.manipulationScaleDown = false;
+	if (m_keyArray['C'])
+	{
+		m_toolInputCommands.generateObject = true;
+	}
+	else m_toolInputCommands.generateObject = false;
+	if (m_keyArray['F'])
+	{
+		m_toolInputCommands.deleteObject = true;
+	}
+	else m_toolInputCommands.deleteObject = false;
+	if (m_keyArray['J'])
+	{
+		m_toolInputCommands.gotoObject = true;
+	}
+	else m_toolInputCommands.gotoObject = false;
+	if (m_keyArray['B'])
+	{
+		m_toolInputCommands.manipulationMoveObject = true;
+	}
+	else m_toolInputCommands.manipulationMoveObject = false;
 }

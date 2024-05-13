@@ -1,28 +1,10 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Win32SimpleSample.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  Game.cpp
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Game.h(56,22): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Game.h(61,22): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Game.cpp(196,57): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Game.cpp(195,57): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Game.cpp(194,97): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Game.cpp(180,10): warning C4101: 'Buffer': unreferenced local variable
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Game.cpp(225,84): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Game.cpp(225,60): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Game.cpp(226,83): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Game.cpp(226,59): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Game.cpp(232,23): warning C4018: '<': signed/unsigned mismatch
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Game.cpp(240,55): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Game.cpp(239,153): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Game.cpp(239,104): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Game.cpp(246,117): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Game.cpp(246,91): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Game.cpp(248,115): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Game.cpp(248,89): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Game.cpp(255,27): warning C4018: '<': signed/unsigned mismatch
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Game.cpp(296,22): warning C4018: '<': signed/unsigned mismatch
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Game.cpp(361): warning C4715: 'Game::RotateObject': not all control paths return a value
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Game.cpp(371): warning C4715: 'Game::MoveObjectUp': not all control paths return a value
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Game.cpp(380): warning C4715: 'Game::MoveObjectDown': not all control paths return a value
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Game.cpp(389): warning C4715: 'Game::MoveObjectLeft': not all control paths return a value
-E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Game.cpp(398): warning C4715: 'Game::MoveObjectRight': not all control paths return a value
+  Camera.cpp
+E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Camera.cpp(78,87): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Camera.cpp(78,63): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Camera.cpp(80,86): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Camera.cpp(80,62): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Camera.cpp(95,66): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Camera.cpp(96,28): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Camera.cpp(97,66): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   Win32SimpleSample.vcxproj -> E:\303-Unity\CMP400\WFFC-Edit\WOFFCEdit\Debug\WoFEdit.exe

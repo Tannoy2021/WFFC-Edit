@@ -59,6 +59,19 @@ public:
 	int MoveObjectLeft();
 	int MoveObjectRight();
 	int movementSpeed = 1.f;
+	bool isCopied = false;
+	void DeleteObject(int id);
+	void CreateObject();
+	int TriggerCreationOnce();
+	bool selectedAgain = false;
+	void DeselectObject();
+	int ScaleObjectUp();
+	int ScaleObjectDown();
+
+	// Same as mouse picking but doesnt snap the camera to the position and also uses the left button later on 
+	int MoveObjectWithMouseLeftB();
+	int HighlightObject();
+	int FocusOnObject();
 
 #ifdef DXTK_AUDIO
 	void NewAudioDevice();

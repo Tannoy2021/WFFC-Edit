@@ -56,12 +56,6 @@ Camera::Camera(float camerasped, float camerarotation, DirectX::SimpleMath::Vect
 	m_camRight.y = 0.0f;
 	m_camRight.z = 0.0f;
 
-	middleX = height / 2;
-	middleY = width / 2;
-
-	int ID = -1;
-
-	HandleInput(InputCommands());
 }
 
 Camera::~Camera()
@@ -176,52 +170,13 @@ void Camera::SetCameraOrientation(const DirectX::SimpleMath::Vector3& orientatio
 	m_camOrientation = orientation;
 }
 
+// Used to spawn object at camera position
+DirectX::SimpleMath::Vector3 Camera::GetCameraPosition()
+{
+	return m_camPosition;
+}
 
-//void Camera::Update(DX::StepTimer const& timer, InputCommands m_InputCommands)
-//{
-//	//TODO  any more complex than this, and the camera should be abstracted out to somewhere else
-//	//camera motion is on a plane, so kill the 7 component of the look direction
-//	DirectX::SimpleMath::Vector3 planarMotionVector = m_camLookDirection;
-//	planarMotionVector.y = 0.0;
-//
-//	if (m_InputCommands.rotRight)
-//	{
-//		m_camOrientation.y -= m_camRotRate;
-//	}
-//	if (m_InputCommands.rotLeft)
-//	{
-//		m_camOrientation.y += m_camRotRate;
-//	}
-//
-//	//create look direction from Euler angles in m_camOrientation
-//	m_camLookDirection.x = sin((m_camOrientation.y) * 3.1415 / 180);
-//	m_camLookDirection.z = cos((m_camOrientation.y) * 3.1415 / 180);
-//	m_camLookDirection.Normalize();
-//
-//	//create right vector from look Direction
-//	m_camLookDirection.Cross(DirectX::SimpleMath::Vector3::UnitY, m_camRight);
-//
-//	//process input and update stuff
-//	if (m_InputCommands.forward)
-//	{
-//		m_camPosition += m_camLookDirection * m_movespeed;
-//	}
-//	if (m_InputCommands.back)
-//	{
-//		m_camPosition -= m_camLookDirection * m_movespeed;
-//	}
-//	if (m_InputCommands.right)
-//	{
-//		m_camPosition += m_camRight * m_movespeed;
-//	}
-//	if (m_InputCommands.left)
-//	{
-//		m_camPosition -= m_camRight * m_movespeed;
-//	}
-//
-//	//update lookat point
-//	m_camLookAt = m_camPosition + m_camLookDirection;
-//
-//	//apply camera vectors
-//	m_view = DirectX::SimpleMath::Matrix::CreateLookAt(m_camPosition, m_camLookAt, DirectX::SimpleMath::Vector3::UnitY);
-//}
+DirectX::SimpleMath::Vector3 Camera::GetCameraOrientation()
+{
+	return m_camOrientation;
+}
