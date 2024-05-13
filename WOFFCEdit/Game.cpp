@@ -122,27 +122,18 @@ void Game::CreateObject()
 
     int selectedID = MousePicking();
 
-    //setup near and far planes of frustum with mouse X and mouse y passed down from Toolmain. 
-	//they may look the same but note, the difference in Z
-    const XMVECTOR nearSource = XMVectorSet(m_InputCommands.mouseX, m_InputCommands.mouseY, 0.0f, 1.0f);
-    const XMVECTOR farSource = XMVectorSet(m_InputCommands.mouseX, m_InputCommands.mouseY, 1.0f, 1.0f);
+    
 
     DirectX::SimpleMath::Vector3 selectedPosition;
 
 
-        //Unproject the points on the near and far plane, with respect to the matrix we just created.
-        XMVECTOR nearPoint = XMVector3Unproject(nearSource, 0.0f, 0.0f, m_ScreenDimensions.right, m_ScreenDimensions.bottom, m_deviceResources->GetScreenViewport().MinDepth, m_deviceResources->GetScreenViewport().MaxDepth, m_projection, m_view, m_world);
+      
 
-        XMVECTOR farPoint = XMVector3Unproject(farSource, 0.0f, 0.0f, m_ScreenDimensions.right, m_ScreenDimensions.bottom, m_deviceResources->GetScreenViewport().MinDepth, m_deviceResources->GetScreenViewport().MaxDepth, m_projection, m_view, m_world);
-
-        //turn the transformed points into our picking vector. 
-        XMVECTOR pickingVector = farPoint - nearPoint;
-        pickingVector = XMVector3Normalize(pickingVector);
-        Vector3 Position = nearPoint + pickingVector;
+        
         selectedPosition = m_camera.GetCameraPosition();
 
         auto device = m_deviceResources->GetD3DDevice();
-        auto devicecontext = m_deviceResources->GetD3DDeviceContext();
+       
 
         DisplayObject newDisplayObject;
 
