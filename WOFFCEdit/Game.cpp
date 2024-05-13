@@ -170,21 +170,6 @@ void Game::CreateObject()
         newDisplayObject.m_scale.y = m_displayList[selectedID].m_scale.y;
         newDisplayObject.m_scale.z = m_displayList[selectedID].m_scale.z;
 
-
-       /* std::vector<SceneObject>* SceneGraph;
-
-        newDisplayObject.m_light_type = SceneGraph->at(selectedID).light_type;
-        newDisplayObject.m_light_diffuse_r = SceneGraph->at(selectedID).light_diffuse_r;
-        newDisplayObject.m_light_diffuse_g = SceneGraph->at(selectedID).light_diffuse_g;
-        newDisplayObject.m_light_diffuse_b = SceneGraph->at(selectedID).light_diffuse_b;
-        newDisplayObject.m_light_specular_r = SceneGraph->at(selectedID).light_specular_r;
-        newDisplayObject.m_light_specular_g = SceneGraph->at(selectedID).light_specular_g;
-        newDisplayObject.m_light_specular_b = SceneGraph->at(selectedID).light_specular_b;
-        newDisplayObject.m_light_spot_cutoff = SceneGraph->at(selectedID).light_spot_cutoff;
-        newDisplayObject.m_light_constant = SceneGraph->at(selectedID).light_constant;
-        newDisplayObject.m_light_linear = SceneGraph->at(selectedID).light_linear;
-        newDisplayObject.m_light_quadratic = SceneGraph->at(selectedID).light_quadratic;*/
-
         newDisplayObject.m_render = true;
 
         m_displayList.push_back(newDisplayObject);

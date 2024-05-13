@@ -339,7 +339,7 @@ void ToolMain::Tick(MSG *msg)
 	if (m_selectedObject != -1 && m_toolInputCommands.manipulationMoveObject && m_toolInputCommands.mouseLDown)
 	{
 		m_d3dRenderer.MoveObjectWithMouseLeftB();
-		//m_selectedObject = -1;
+		m_selectedObject = -1;
 	}
 	//do we have a selection
 	//do we have a mode
